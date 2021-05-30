@@ -20,9 +20,12 @@ CREATE TABLE IF NOT EXISTS persistent_logins (
 	last_used TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS email_verification_tokens (
+CREATE TABLE IF NOT EXISTS verification_tokens (
     token VARCHAR(100) PRIMARY KEY,
     user_id INT NOT NULL,
 	expiry_date TIMESTAMP NOT NULL,
+	type VARCHAR(20) NOT NULL,
 	FOREIGN KEY(user_id) REFERENCES users(id)
 );
+
+-- docker run -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' -e 'PGADMIN_DEFAULT_PASSWORD=12345' -d dpage/pgadmin4

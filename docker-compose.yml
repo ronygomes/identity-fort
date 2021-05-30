@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   postgres:
-    container_name: identity_fort
+    container_name: identity_fort_postgres
     image: postgres:9.6
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -12,6 +12,13 @@ services:
       - postgres:/data/postgres
     ports:
       - '5432:5432'
+
+  mailhog:
+    container_name: identity_fort_mailhog
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - '1025:1025'
+      - '8025:8025'
 
 volumes:
   postgres:

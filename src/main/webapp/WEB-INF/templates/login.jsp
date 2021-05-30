@@ -61,6 +61,7 @@
                 type="submit">Sign in</button>
     </form>
     <a href='<c:out value="/register"/>'>Register</a>
+    <a href='<c:out value="/forgetPassword"/>'>Forget Password</a>
 </div>
 
 

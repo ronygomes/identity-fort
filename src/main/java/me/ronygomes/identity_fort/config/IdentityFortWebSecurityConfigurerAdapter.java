@@ -19,8 +19,8 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
-    private DataSource dataSource;
-    private IdentityFortUserDetailsService userDetailsService;
+    private final DataSource dataSource;
+    private final IdentityFortUserDetailsService userDetailsService;
 
     @Autowired
     public IdentityFortWebSecurityConfigurerAdapter(DataSource dataSource,
@@ -39,7 +39,7 @@ public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigu
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/confirmToken").permitAll()
+                .antMatchers("/login", "/register", "/forgetPassword", "/confirmToken/*").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

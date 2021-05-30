@@ -6,8 +6,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "email_verification_tokens")
-public class EmailVerificationToken implements Serializable {
+@Table(name = "verification_tokens")
+public class VerificationToken implements Serializable {
+
+    public static enum TokenType {
+        FORGET_PASSWORD, EMAIL_CONFIRMATION
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -25,12 +29,17 @@ public class EmailVerificationToken implements Serializable {
     @Column(name = "expiry_date", nullable = false, updatable = false)
     private Date expiryDate;
 
-    public EmailVerificationToken() {
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, updatable = false)
+    private TokenType type;
+
+    public VerificationToken() {
     }
 
-    public EmailVerificationToken(String token, User owner) {
+    public VerificationToken(String token, User owner, TokenType type) {
         this.owner = owner;
         this.token = token;
+        this.type = type;
 
         Calendar currentTime = Calendar.getInstance();
         currentTime.add(Calendar.HOUR, VERIFICATION_TOKEN_EXPIRE_DURATION_IN_HOUR);
@@ -64,6 +73,14 @@ public class EmailVerificationToken implements Serializable {
 
     public boolean isExpired() {
         return getExpiryDate().before(new Date());
+    }
+
+    public TokenType getType() {
+        return type;
+    }
+
+    public void setType(TokenType type) {
+        this.type = type;
     }
 
     @Override
