@@ -29,3 +29,43 @@ CREATE TABLE IF NOT EXISTS verification_tokens (
 );
 
 -- docker run -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' -e 'PGADMIN_DEFAULT_PASSWORD=12345' -d dpage/pgadmin4
+
+/*
+CREATE TABLE IF NOT EXISTS oauth_access_token (
+  token_id VARCHAR(256),
+  token BYTEA,
+  authentication_id VARCHAR(256) PRIMARY KEY,
+  user_name VARCHAR(256),
+  client_id VARCHAR(256),
+  authentication BYTEA,
+  refresh_token VARCHAR(256)
+);
+
+CREATE TABLE IF NOT EXISTS oauth_refresh_token (
+  token_id VARCHAR(256),
+  token BYTEA,
+  authentication BYTEA
+);
+*/
+/*
+grant_type=authorization_code
+&code=xxxxxxxxxxx
+&redirect_uri=https://example-app.com/redirect
+&client_id=xxxxxxxxxx
+&client_secret=xxxxxxxxxx
+*/
+/*
+http://localhost:8080/oauth/token
+
+Headers:
+
+Content-Type: application/x-www-form-urlencoded
+authorization: Basic Y2xpZW50YXBwOjEyMzQ1Ng==
+
+Form data - application/x-www-form-urlencoded:
+
+grant_type=authorization_code
+code=?
+redirect_uri=https://localhost/callback
+
+ */

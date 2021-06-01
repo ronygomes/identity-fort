@@ -40,6 +40,7 @@ public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigu
         http
                 .authorizeRequests()
                 .antMatchers("/login", "/register", "/forgetPassword", "/confirmToken/*").permitAll()
+                .antMatchers("/oauth/token", "/oauth/authorize").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
