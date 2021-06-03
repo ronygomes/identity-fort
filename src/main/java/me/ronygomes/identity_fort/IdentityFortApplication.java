@@ -9,5 +9,4 @@ public class IdentityFortApplication {
     public static void main(String[] args) {
         SpringApplication.run(IdentityFortApplication.class, args);
     }
-
 }

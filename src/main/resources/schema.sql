@@ -28,44 +28,73 @@ CREATE TABLE IF NOT EXISTS verification_tokens (
 	FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
--- docker run -p 8081:80 -e 'PGADMIN_DEFAULT_EMAIL=user@domain.com' -e 'PGADMIN_DEFAULT_PASSWORD=12345' -d dpage/pgadmin4
+-- Source: https://github.com/spring-projects/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql
+CREATE TABLE IF NOT EXISTS oauth_code (
+    code VARCHAR(256),
+    authentication BYTEA
+);
 
-/*
 CREATE TABLE IF NOT EXISTS oauth_access_token (
-  token_id VARCHAR(256),
-  token BYTEA,
-  authentication_id VARCHAR(256) PRIMARY KEY,
-  user_name VARCHAR(256),
-  client_id VARCHAR(256),
-  authentication BYTEA,
-  refresh_token VARCHAR(256)
+    token_id VARCHAR(256),
+    token BYTEA,
+    authentication_id VARCHAR(256) PRIMARY KEY,
+    user_name VARCHAR(256),
+    client_id VARCHAR(256),
+    authentication BYTEA,
+    refresh_token VARCHAR(256)
 );
 
 CREATE TABLE IF NOT EXISTS oauth_refresh_token (
-  token_id VARCHAR(256),
-  token BYTEA,
-  authentication BYTEA
+    token_id VARCHAR(256),
+    token BYTEA,
+    authentication BYTEA
 );
-*/
-/*
-grant_type=authorization_code
-&code=xxxxxxxxxxx
-&redirect_uri=https://example-app.com/redirect
-&client_id=xxxxxxxxxx
-&client_secret=xxxxxxxxxx
-*/
-/*
-http://localhost:8080/oauth/token
 
-Headers:
+CREATE TABLE IF NOT EXISTS oauth_approvals (
+    userId VARCHAR(256),
+    clientId VARCHAR(256),
+    scope VARCHAR(256),
+    status VARCHAR(10),
+    expiresAt TIMESTAMP,
+    lastModifiedAt TIMESTAMP
+);
 
-Content-Type: application/x-www-form-urlencoded
-authorization: Basic Y2xpZW50YXBwOjEyMzQ1Ng==
+ /*
+ create table oauth_client_details (
+  client_id VARCHAR(256) PRIMARY KEY,
+  resource_ids VARCHAR(256),
+  client_secret VARCHAR(256),
+  scope VARCHAR(256),
+  authorized_grant_types VARCHAR(256),
+  web_server_redirect_uri VARCHAR(256),
+  authorities VARCHAR(256),
+  access_token_validity INTEGER,
+  refresh_token_validity INTEGER,
+  additional_information VARCHAR(4096),
+  autoapprove VARCHAR(256)
+);
 
-Form data - application/x-www-form-urlencoded:
+-- customized oauth_client_details table
+create table ClientDetails (
+  appId VARCHAR(256) PRIMARY KEY,
+  resourceIds VARCHAR(256),
+  appSecret VARCHAR(256),
+  scope VARCHAR(256),
+  grantTypes VARCHAR(256),
+  redirectUrl VARCHAR(256),
+  authorities VARCHAR(256),
+  access_token_validity INTEGER,
+  refresh_token_validity INTEGER,
+  additionalInformation VARCHAR(4096),
+  autoApproveScopes VARCHAR(256)
+);
 
-grant_type=authorization_code
-code=?
-redirect_uri=https://localhost/callback
+create table oauth_client_token (
+  token_id VARCHAR(256),
+  token LONGVARBINARY,
+  authentication_id VARCHAR(256) PRIMARY KEY,
+  user_name VARCHAR(256),
+  client_id VARCHAR(256)
+);
 
- */
+  */
