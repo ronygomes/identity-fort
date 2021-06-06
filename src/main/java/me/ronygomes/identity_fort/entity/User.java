@@ -1,5 +1,6 @@
 package me.ronygomes.identity_fort.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -107,6 +108,7 @@ public class User implements Serializable, UserDetails {
         this.address = address;
     }
 
+    @JsonIgnore
     public String getHashedPassword() {
         return hashedPassword;
     }
@@ -127,6 +129,7 @@ public class User implements Serializable, UserDetails {
         this.locked = locked;
     }
 
+    @JsonIgnore
     public String getRawPassword() {
         return rawPassword;
     }
@@ -135,6 +138,7 @@ public class User implements Serializable, UserDetails {
         this.rawPassword = rawPassword;
     }
 
+    @JsonIgnore
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -144,11 +148,13 @@ public class User implements Serializable, UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptyList();
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return hashedPassword;
     }
@@ -159,16 +165,19 @@ public class User implements Serializable, UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }

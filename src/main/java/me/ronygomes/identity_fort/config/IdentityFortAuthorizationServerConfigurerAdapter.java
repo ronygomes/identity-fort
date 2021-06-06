@@ -3,6 +3,7 @@ package me.ronygomes.identity_fort.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -13,8 +14,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.approval.JdbcApprovalStore;
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
 
 @Configuration
 @EnableAuthorizationServer
@@ -24,13 +27,16 @@ public class IdentityFortAuthorizationServerConfigurerAdapter extends Authorizat
 
     private final PasswordEncoder encoder;
     private final DataSource dataSource;
+    private final KeyPair keyPair;
 
     @Autowired
     public IdentityFortAuthorizationServerConfigurerAdapter(PasswordEncoder encoder,
-                                                            DataSource dataSource) {
+                                                            DataSource dataSource,
+                                                            KeyPair keyPair) {
 
         this.encoder = encoder;
         this.dataSource = dataSource;
+        this.keyPair = keyPair;
     }
 
     // http://localhost:8081/oauth/token
@@ -60,5 +66,12 @@ public class IdentityFortAuthorizationServerConfigurerAdapter extends Authorizat
                 .authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource))
                 .approvalStore(new JdbcApprovalStore(dataSource))
                 .tokenStore(new JdbcTokenStore(dataSource));
+    }
+
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setKeyPair(this.keyPair);
+        return converter;
     }
 }

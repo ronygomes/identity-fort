@@ -20,5 +20,14 @@ services:
       - '1025:1025'
       - '8025:8025'
 
+  pgadmin:
+    container_name: identity_fort_pgadmin
+    image: dpage/pgadmin4:5
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@identity-fort.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-12345}
+    ports:
+      - '5050:80'
+
 volumes:
   postgres:

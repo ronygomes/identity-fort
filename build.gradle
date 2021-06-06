@@ -27,8 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.webjars:bootstrap:4.5.0'
 
-	 implementation 'org.springframework.security.experimental:spring-security-oauth2-authorization-server:0.1.0'
-	// implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.2.2.RELEASE'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
