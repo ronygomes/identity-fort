@@ -10,11 +10,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 
 @EnableWebSecurity
 public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
@@ -64,6 +68,13 @@ public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigu
                 .rememberMe()
                 .tokenRepository(tokenRepository());
 
+//                .and()
+//                .mvcMatcher("/v1/users/**").authorizeRequests()
+//                .mvcMatchers("/v1/users/**").access("hasAuthority('SCOPE_user_info')")
+//                .and()
+//                .oauth2ResourceServer()
+//                .jwt();
+
     }
 
     @Override
@@ -82,5 +93,23 @@ public class IdentityFortWebSecurityConfigurerAdapter extends WebSecurityConfigu
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
+    }
+//
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.mvcMatcher("/v1/users/**")
+//                .authorizeRequests()
+//                .mvcMatchers("/v1/users/**").access("hasAuthority('SCOPE_user_info')")
+//                .and()
+//                .oauth2ResourceServer()
+//                .jwt();
+//        return http.build();
+//    }
+
+    @Bean
+    public KeyPair keyPair() throws NoSuchAlgorithmException {
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(2048);
+        return keyPairGenerator.generateKeyPair();
     }
 }
