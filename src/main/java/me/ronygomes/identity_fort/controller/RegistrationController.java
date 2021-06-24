@@ -5,6 +5,7 @@ import me.ronygomes.identity_fort.entity.VerificationToken;
 import me.ronygomes.identity_fort.repository.UserRepository;
 import me.ronygomes.identity_fort.repository.VerificationTokenRepository;
 import me.ronygomes.identity_fort.service.EmailService;
+import me.ronygomes.identity_fort.service.UserService;
 import me.ronygomes.identity_fort.validator.UserRegistrationValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,24 +38,24 @@ public class RegistrationController {
 
     private static final String COMMAND_NAME = "user";
 
-    @Autowired
-    private EmailService emailService;
-
     private UserRepository userRepository;
     private VerificationTokenRepository verificationTokenRepository;
     private PasswordEncoder encoder;
     private UserRegistrationValidator userRegistrationValidator;
+    private UserService userService;
 
     @Autowired
     public RegistrationController(UserRepository userRepository,
                                   VerificationTokenRepository verificationTokenRepository,
                                   PasswordEncoder encoder,
-                                  UserRegistrationValidator userRegistrationValidator) {
+                                  UserRegistrationValidator userRegistrationValidator,
+                                  UserService userService) {
 
         this.userRepository = userRepository;
         this.verificationTokenRepository = verificationTokenRepository;
         this.encoder = encoder;
         this.userRegistrationValidator = userRegistrationValidator;
+        this.userService = userService;
     }
 
     @InitBinder
@@ -79,15 +80,7 @@ public class RegistrationController {
             return VIEW_NAME;
         }
 
-        user.setRegistrationDate(new Date());
-        user.setHashedPassword(encoder.encode(user.getRawPassword()));
-
-        userRepository.save(user);
-
-        String token = UUID.randomUUID().toString();
-        verificationTokenRepository.save(new VerificationToken(token, user, EMAIL_CONFIRMATION));
-        log.error("Generated token: {}", token);
-
+        userService.registerUser(user, UUID.randomUUID().toString());
         putSuccessRedirectMessage(redirectAttributes, "User Successfully Registered. Verify Email to Login");
 
         return "redirect:/login";
