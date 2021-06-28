@@ -4,7 +4,6 @@ import me.ronygomes.identity_fort.entity.User;
 import me.ronygomes.identity_fort.entity.VerificationToken;
 import me.ronygomes.identity_fort.repository.UserRepository;
 import me.ronygomes.identity_fort.repository.VerificationTokenRepository;
-import me.ronygomes.identity_fort.service.EmailService;
 import me.ronygomes.identity_fort.service.UserService;
 import me.ronygomes.identity_fort.validator.UserRegistrationValidator;
 import org.slf4j.Logger;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
-import static me.ronygomes.identity_fort.entity.VerificationToken.TokenType.EMAIL_CONFIRMATION;
 import static me.ronygomes.identity_fort.entity.VerificationToken.TokenType.FORGET_PASSWORD;
 import static me.ronygomes.identity_fort.util.WebHelper.putErrorRedirectMessage;
 import static me.ronygomes.identity_fort.util.WebHelper.putSuccessRedirectMessage;

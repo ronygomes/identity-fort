@@ -1,6 +1,5 @@
 package me.ronygomes.identity_fort.listener;
 
-import me.ronygomes.identity_fort.controller.RegistrationController;
 import me.ronygomes.identity_fort.event.EmailEvent;
 import me.ronygomes.identity_fort.service.EmailService;
 import org.slf4j.Logger;

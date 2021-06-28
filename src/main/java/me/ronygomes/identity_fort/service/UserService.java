@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.UUID;
 
 import static me.ronygomes.identity_fort.entity.VerificationToken.TokenType.EMAIL_CONFIRMATION;
 
@@ -35,7 +34,6 @@ public class UserService {
         this.eventPublisher = eventPublisher;
         this.encoder = encoder;
     }
-
 
 
     @Transactional
