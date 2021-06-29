@@ -12,6 +12,16 @@ CREATE TABLE IF NOT EXISTS users (
     locked BOOLEAN NOT NULL
 );
 
+CREATE SEQUENCE IF NOT EXISTS applications_seq;
+
+CREATE TABLE IF NOT EXISTS applications (
+    id INT DEFAULT nextval('applications_seq') PRIMARY KEY,
+    client_id VARCHAR(100) NOT NULL ,
+    client_secret VARCHAR(100) NOT NULL,
+    redirect_uri VARCHAR(200) NOT NULL,
+    create_date TIMESTAMP NOT NULL
+);
+
 -- Source: org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl
 CREATE TABLE IF NOT EXISTS persistent_logins (
     username VARCHAR(64) NOT NULL,

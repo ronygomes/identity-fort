@@ -39,7 +39,7 @@ public class IdentityFortAuthorizationServerConfigurerAdapter extends Authorizat
 
     // http://localhost:8081/oauth/token
     // http://localhost:8081/oauth/authorize
-    // http://localhost:8080/oauth/authorize?response_type=code&client_id=testClient&redirect_uri=https%3A%2F%2Flocalhost%2Fcallback&&scope=user_info&state=1
+    // http://localhost:8080/oauth/authorize?response_type=code&client_id=test_client&redirect_uri=https%3A%2F%2Flocalhost%2Fcallback&&scope=user_info&state=1
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
         security.tokenKeyAccess("permitAll()")

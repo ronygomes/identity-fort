@@ -3,11 +3,16 @@ package me.ronygomes.identity_fort.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
 
+@Entity
+@Table(name = "applications")
 public class Application implements ClientDetails {
 
     private static final int ACCESS_TOKEN_VALIDITY_1_HOUR_IN_SECOND = 60 * 60;
@@ -16,13 +21,30 @@ public class Application implements ClientDetails {
     private static final Set<String> DEFAULT_GRANT_TYPES =
             new HashSet<>(asList("authorization_code", "refresh_token"));
 
-    private static final Set<String> ALLOWED_SCOPES = new HashSet<>(singleton("user_info"));
+    private static final Set<String> ALLOWED_SCOPES = singleton("user_info");
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank
+    @Size(min = 1, max = 100)
+    @Column(name = "client_id", length = 100, nullable = false)
     private String clientId;
+
+    @NotBlank
+    @Size(min = 1, max = 100)
+    @Column(name = "client_secret", length = 100, nullable = false)
     private String clientSecret;
-    private Set<String> registeredRedirectUri;
+
+    @NotBlank
+    @Size(min = 10, max = 200)
+    @Column(name = "redirect_uri", length = 200, nullable = false)
+    private String redirectUri;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date", nullable = false, updatable = false)
+    private Date createDate;
 
     public int getId() {
         return id;
@@ -40,8 +62,20 @@ public class Application implements ClientDetails {
         this.clientSecret = clientSecret;
     }
 
-    public void setRegisteredRedirectUri(Set<String> registeredRedirectUri) {
-        this.registeredRedirectUri = registeredRedirectUri;
+    public String getRedirectUri() {
+        return redirectUri;
+    }
+
+    public void setRedirectUri(String redirectUri) {
+        this.redirectUri = redirectUri;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Override
@@ -81,7 +115,7 @@ public class Application implements ClientDetails {
 
     @Override
     public Set<String> getRegisteredRedirectUri() {
-        return registeredRedirectUri;
+        return singleton(redirectUri);
     }
 
     @Override

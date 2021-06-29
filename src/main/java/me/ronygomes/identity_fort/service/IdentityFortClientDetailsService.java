@@ -1,36 +1,37 @@
 package me.ronygomes.identity_fort.service;
 
+import me.ronygomes.identity_fort.entity.Application;
+import me.ronygomes.identity_fort.repository.ApplicationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class IdentityFortClientDetailsService implements ClientDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(IdentityFortClientDetailsService.class);
 
+    private ApplicationRepository applicationRepository;
+
+    @Autowired
+    public IdentityFortClientDetailsService(ApplicationRepository applicationRepository) {
+        this.applicationRepository = applicationRepository;
+    }
 
     @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
-        log.error("Was Here");
-//        Application application = new Application();
-//
-//        application.setClientId("testClient");
-//        application.setClientSecret(new BCryptPasswordEncoder().encode("abc"));
-//        application.setRegisteredRedirectUri(new HashSet<>(singleton("https://localhost/callback")));
+        Optional<Application> application = applicationRepository.findByClientId(clientId);
+        if (application.isPresent()) {
+            return new BaseClientDetails(application.get());
+        }
 
-        BaseClientDetails b = new BaseClientDetails("testClient", null,
-                "user_info", null, null, "https://localhost/callback");
-
-        b.setClientSecret(new BCryptPasswordEncoder().encode("abc"));
-        return b;
-//
-//
-//        return c;
+        throw new ClientRegistrationException("Unable to find client with id: " + clientId);
     }
 }
