@@ -7,4 +7,4 @@ VALUES ('John', 'Doe', NOW(), 'john@example.com', '$2a$10$/mYRRRlNVvGFBZ/psoDwQe
 DELETE FROM applications WHERE client_id = 'test_client';
 
 INSERT INTO applications (client_id, client_secret, redirect_uri, create_date)
-VALUES ('test_client', '$2a$10$/mYRRRlNVvGFBZ/psoDwQeBhaQitiEQyRI3wnI.2ERj38k8ds0RRC', 'https://localhost/callback', NOW());
+VALUES ('test_client', '$2a$10$/mYRRRlNVvGFBZ/psoDwQeBhaQitiEQyRI3wnI.2ERj38k8ds0RRC', 'http://localhost/callback', NOW());
