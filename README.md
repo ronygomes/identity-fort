@@ -25,7 +25,7 @@ After that executing following `gradle` command will make the app available at `
 $ ./gradlew clean build bootRun
 ```
 
-### 
+### Fetch User Details
 Default user with email: `john@example.com`, password: `amdin` and oauth client
 with clientId: `test-client`, client secret: `admin`, redirect_uri:
 `http://localhost/callback` is created.
@@ -57,7 +57,7 @@ curl --user test_client:admin \
 }
 ```
 
-With this `access_token` user information can be fetching from `http://localhost:8080/v1/users/info` endpoint:
+With this `access_token` user information can be fetched from `http://localhost:8080/v1/users/info` endpoint:
 ```bash
 curl -H 'Authorization: Bearer f130c3ed-6407-4fca-bb52-dc6019921247' http://localhost:8080/v1/users/info
 
