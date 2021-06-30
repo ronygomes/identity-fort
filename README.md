@@ -44,7 +44,7 @@ http://localhost:8080/oauth/authorize?response_type=code
 With this `code`, acquire access token from `http://localhost:8080/oauth/token`:
 
 ```shell
-curl --user test_client:admin \
+$ curl --user test_client:admin \
             -d 'grant_type=authorization_code&code=<CODE>&redirect_uri=http://localhost/callback' \
             http://localhost:8080/oauth/token
 
@@ -59,7 +59,7 @@ curl --user test_client:admin \
 
 With this `access_token` user information can be fetched from `http://localhost:8080/v1/users/info` endpoint:
 ```bash
-curl -H 'Authorization: Bearer f130c3ed-6407-4fca-bb52-dc6019921247' http://localhost:8080/v1/users/info
+$ curl -H 'Authorization: Bearer f130c3ed-6407-4fca-bb52-dc6019921247' http://localhost:8080/v1/users/info
 
 {
    "id":1,
