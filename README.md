@@ -25,6 +25,22 @@ After that executing following `gradle` command will make the app available at `
 $ ./gradlew clean build bootRun
 ```
 
+If SDKMan is installed, executing following commands will install java-8.0.372-amzn
+```sh
+$ sdk env install
+```
+
+With `psql` can connect to the running postgres instance using following command:
+```sh
+$ docker run -it --rm \
+    --network identity-fort_default postgres:9.6 \
+    psql -h identity_fort_postgres -U postgres
+
+# These commands will connect to `identity_fort` database and will list all tables
+postgres-# \connect identity_fort
+identity_fort-# \dt
+```
+
 ### Fetch User Details
 Default user with email: `john@example.com`, password: `amdin` and oauth client
 with clientId: `test-client`, client secret: `admin`, redirect_uri:
