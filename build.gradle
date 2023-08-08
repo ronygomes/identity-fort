@@ -27,7 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.webjars:bootstrap:4.5.0'
 
-	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.2.2.RELEASE'
+	implementation 'org.springframework.security.oauth:spring-security-oauth2:2.5.2.RELEASE'
 
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

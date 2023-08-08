@@ -18,10 +18,10 @@ import static me.ronygomes.identity_fort.entity.VerificationToken.TokenType.EMAI
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private VerificationTokenRepository verificationTokenRepository;
-    private ApplicationEventPublisher eventPublisher;
-    private PasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final ApplicationEventPublisher eventPublisher;
+    private final PasswordEncoder encoder;
 
     @Autowired
     public UserService(UserRepository userRepository,

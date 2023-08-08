@@ -15,7 +15,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 

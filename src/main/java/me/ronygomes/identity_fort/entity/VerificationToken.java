@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "verification_tokens")
 public class VerificationToken implements Serializable {
 
-    public static enum TokenType {
+    public enum TokenType {
         FORGET_PASSWORD, EMAIL_CONFIRMATION
     }
 

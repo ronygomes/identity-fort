@@ -18,7 +18,7 @@ public class IdentityFortClientDetailsService implements ClientDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(IdentityFortClientDetailsService.class);
 
-    private ApplicationRepository applicationRepository;
+    private final ApplicationRepository applicationRepository;
 
     @Autowired
     public IdentityFortClientDetailsService(ApplicationRepository applicationRepository) {

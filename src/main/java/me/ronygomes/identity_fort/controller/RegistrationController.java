@@ -35,11 +35,11 @@ public class RegistrationController {
 
     private static final String COMMAND_NAME = "user";
 
-    private UserRepository userRepository;
-    private VerificationTokenRepository verificationTokenRepository;
-    private PasswordEncoder encoder;
-    private UserRegistrationValidator userRegistrationValidator;
-    private UserService userService;
+    private final UserRepository userRepository;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final PasswordEncoder encoder;
+    private final UserRegistrationValidator userRegistrationValidator;
+    private final UserService userService;
 
     @Autowired
     public RegistrationController(UserRepository userRepository,
