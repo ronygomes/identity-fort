@@ -31,7 +31,7 @@ public class IdentityFortAuthorizationServerConfigurerAdapter extends Authorizat
     @Autowired
     public IdentityFortAuthorizationServerConfigurerAdapter(DataSource dataSource,
                                                             @Qualifier("identityFortClientDetailsService")
-                                                                    ClientDetailsService clientDetailsService) {
+                                                            ClientDetailsService clientDetailsService) {
 
         this.dataSource = dataSource;
         this.clientDetailsService = clientDetailsService;
