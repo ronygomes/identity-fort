@@ -1,5 +1,6 @@
 package me.ronygomes.identity_fort.controller;
 
+import me.ronygomes.identity_fort.command.EmailCommand;
 import me.ronygomes.identity_fort.entity.User;
 import me.ronygomes.identity_fort.entity.VerificationToken;
 import me.ronygomes.identity_fort.repository.UserRepository;
@@ -30,10 +31,12 @@ public class RegistrationController {
 
     private static final Logger log = LoggerFactory.getLogger(RegistrationController.class);
 
-    private static final String VIEW_NAME = "registration";
+    private static final String REGISTRATION_VIEW_NAME = "registration";
     private static final String RESET_PASSWORD_VIEW_NAME = "resetPassword";
+    private static final String FORGOT_PASSWORD_VIEW_NAME = "forgetPassword";
 
-    private static final String COMMAND_NAME = "user";
+    private static final String USER_COMMAND_NAME = "user";
+    private static final String FORGOT_PASSWORD_COMMAND_NAME = "emailCmd";
 
     private final UserRepository userRepository;
     private final VerificationTokenRepository verificationTokenRepository;
@@ -55,7 +58,7 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @InitBinder
+    @InitBinder(USER_COMMAND_NAME)
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields("firstName", "lastName", "email", "rawPassword", "confirmPassword");
         binder.addValidators(userRegistrationValidator);
@@ -63,9 +66,9 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String showRegistrationPage(ModelMap map) {
-        map.put(COMMAND_NAME, new User());
+        map.put(USER_COMMAND_NAME, new User());
 
-        return VIEW_NAME;
+        return REGISTRATION_VIEW_NAME;
     }
 
     @PostMapping("/register")
@@ -74,7 +77,7 @@ public class RegistrationController {
                                        RedirectAttributes redirectAttributes) {
 
         if (result.hasErrors()) {
-            return VIEW_NAME;
+            return REGISTRATION_VIEW_NAME;
         }
 
         userService.registerUser(user, UUID.randomUUID().toString());
@@ -147,20 +150,25 @@ public class RegistrationController {
     }
 
     @GetMapping("/forgetPassword")
-    public String showForgetPasswordForm() {
-        return "forgetPassword";
+    public String showForgetPasswordForm(ModelMap model) {
+        model.put(FORGOT_PASSWORD_COMMAND_NAME, new EmailCommand());
+        return FORGOT_PASSWORD_VIEW_NAME;
     }
 
     @PostMapping("/forgetPassword")
-    public String submitForgetPasswordEmail(@RequestParam String email,
+    public String submitForgetPasswordEmail(@Valid @ModelAttribute(FORGOT_PASSWORD_COMMAND_NAME) EmailCommand cmd,
+                                            BindingResult bindingResult,
+                                            ModelMap map,
                                             RedirectAttributes ra) {
 
-        // TODO: Validate email format
+        if (bindingResult.hasErrors()) {
+            map.put(FORGOT_PASSWORD_COMMAND_NAME, cmd);
+            return FORGOT_PASSWORD_VIEW_NAME;
+        }
 
-        userRepository.findByEmail(email).ifPresent(u -> {
-            String token = UUID.randomUUID().toString();
-            verificationTokenRepository.save(new VerificationToken(token, u, FORGET_PASSWORD));
-            log.error("Generated token: {}", token);
+        userRepository.findByEmail(cmd.getEmail()).ifPresent(u -> {
+            verificationTokenRepository.save(new VerificationToken(UUID.randomUUID().toString(), u, FORGET_PASSWORD));
+            log.info("Generated token for : {}", u.getId());
         });
 
         // Don't show any message whether the email was found
