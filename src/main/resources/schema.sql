@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS oauth_approvals (
     lastModifiedAt TIMESTAMP
 );
 
- /*
+/*
  create table oauth_client_details (
   client_id VARCHAR(256) PRIMARY KEY,
   resource_ids VARCHAR(256),
@@ -106,5 +106,4 @@ create table oauth_client_token (
   user_name VARCHAR(256),
   client_id VARCHAR(256)
 );
-
-  */
+*/

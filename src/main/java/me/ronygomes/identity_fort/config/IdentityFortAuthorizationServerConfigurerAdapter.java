@@ -23,8 +23,6 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class IdentityFortAuthorizationServerConfigurerAdapter extends AuthorizationServerConfigurerAdapter {
 
-    private static final Logger log = LoggerFactory.getLogger(IdentityFortAuthorizationServerConfigurerAdapter.class);
-
     private final DataSource dataSource;
     private final ClientDetailsService clientDetailsService;
 

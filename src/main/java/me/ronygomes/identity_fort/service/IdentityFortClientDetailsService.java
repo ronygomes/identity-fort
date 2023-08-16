@@ -32,6 +32,7 @@ public class IdentityFortClientDetailsService implements ClientDetailsService {
             return new BaseClientDetails(application.get());
         }
 
+        log.error("Unable to find client with id: " + clientId);
         throw new ClientRegistrationException("Unable to find client with id: " + clientId);
     }
 }
