@@ -34,7 +34,8 @@
 
         <sec:csrfInput/>
         <button class="btn btn-lg btn-primary btn-block row offset-1 col-2"
-                type="submit">Update Password</button>
+                type="submit">Update Password
+        </button>
     </form>
     <a href='<c:out value="/login"/>'>Go Back to Login Page</a>
 </div>

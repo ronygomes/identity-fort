@@ -13,7 +13,7 @@ public class IdentityFortWebMvcConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // registry.addViewController("/forgetPassword");
+        registry.addViewController("/login");
     }
 
     @Bean

@@ -41,13 +41,14 @@
         <div class="row col-4">
             <label for="confirmPassword" class="sr-only">Confirm Password</label>
             <form:password path="confirmPassword" cssClass="form-control" placeholder="Confirm Password"
-                        required="required"/>
+                           required="required"/>
             <form:errors path="confirmPassword"/>
         </div>
 
         <sec:csrfInput/>
         <button class="btn btn-lg btn-primary btn-block row offset-1 col-2"
-                type="submit">Sign in</button>
+                type="submit">Sign in
+        </button>
     </form:form>
 </div>
 
