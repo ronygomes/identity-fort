@@ -9,11 +9,8 @@ jobs:
     steps:
       - name: Clone Repository
         uses: actions/checkout@v2
-      - name: Setup SDKMan!
-        uses: sfesenko/setup-sdkman@v0
-      - name: Install JDK
-        run: |
-          source ~/.sdkman/bin/sdkman-init.sh
-          sdk env install
+      - name: Install Java using .sdkmanrc
+        # Using sdkman-action branch, as doesn't have v1 tag yet.
+        uses: sdkman/sdkman-action@main
       - name: Build
         run: ./gradlew clean build
