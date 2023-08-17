@@ -12,6 +12,6 @@ jobs:
       - name: Setup SDKMan!
         uses: sfesenko/setup-sdkman@v0
       - name: Install JDK
-        run: sdkman env install
+        run: sdk env install
       - name: Build
         run: ./gradlew clean build
