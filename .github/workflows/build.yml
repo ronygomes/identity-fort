@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Clone Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Java using .sdkmanrc
         # Using sdkman-action branch, as doesn't have v1 tag yet.
         uses: sdkman/sdkman-action@main
