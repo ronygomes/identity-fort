@@ -88,8 +88,7 @@ public class RegistrationController {
 
     @GetMapping("/confirmToken/{token}")
     public String showConfirmTokenPage(@PathVariable String token, RedirectAttributes redirectAttributes) {
-        VerificationToken verificationToken = verificationTokenRepository.getOne(token);
-
+        VerificationToken verificationToken = verificationTokenRepository.getReferenceById(token);
 
         if (verificationToken.isExpired()) {
             putErrorRedirectMessage(redirectAttributes, "Invalid Verification Code");
@@ -116,12 +115,12 @@ public class RegistrationController {
 
     @PostMapping("/confirmToken/{token}")
     public String submitConfirmTokenPage(@PathVariable String token,
-                                         @RequestParam String password,
-                                         @RequestParam String confirmPassword,
+                                         @RequestParam(required = false) String password,
+                                         @RequestParam(required = false) String confirmPassword,
                                          ModelMap model,
                                          RedirectAttributes redirectAttributes) {
 
-        VerificationToken verificationToken = verificationTokenRepository.getOne(token);
+        VerificationToken verificationToken = verificationTokenRepository.getReferenceById(token);
 
         if (verificationToken.isExpired() || FORGET_PASSWORD != verificationToken.getType()) {
             putErrorRedirectMessage(redirectAttributes, "Invalid Verification Code");
