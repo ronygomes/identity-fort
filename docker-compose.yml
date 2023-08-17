@@ -3,7 +3,7 @@ version: '3.5'
 services:
   postgres:
     container_name: identity_fort_postgres
-    image: postgres:9.6
+    image: postgres:14.4
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-12345}
@@ -23,7 +23,7 @@ services:
 
   pgadmin:
     container_name: identity_fort_pgadmin
-    image: dpage/pgadmin4:5
+    image: dpage/pgadmin4:7.5
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@identity-fort.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-12345}
