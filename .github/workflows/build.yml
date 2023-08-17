@@ -7,6 +7,11 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: sdkman/sdkman-action@v1
-      - run: ./gradlew clean build
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - name: Setup SDKMan!
+        uses: sfesenko/setup-sdkman@v0
+      - name: Install JDK
+        run: sdkman env install
+      - name: Build
+        run: ./gradlew clean build
