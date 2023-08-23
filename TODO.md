@@ -1,6 +1,6 @@
 [ ] Change all static messages to read from message.properties
 [ ] Add Database integration using TestContainer
-[ ] Add GitHub job
+[ ] * Update GitHub action to push image to docker hub
 [ ] Add sitemesh with Header and Footer
 [ ] Change Bootstrap default theme 
 [ ] Add Application UI
