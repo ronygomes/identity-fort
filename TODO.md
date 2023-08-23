@@ -11,4 +11,4 @@
 [ ] Add ArgumentResolver for OAuth2Authentication and use in UserResource
 [ ] Make @AuthrizationServer works with @ResourceServer
 [ ] Update Spring Security oAuth
-[ ] Add Kubernetes deployment configuration
+[ ] Add Kubernetes deployment configuration. Research Internet Convention
