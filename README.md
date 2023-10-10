@@ -1,6 +1,6 @@
 # identity-fort
 
-Lightweight Identity Provider built using Spring Boot and pring Security oAuth.
+Lightweight Identity Provider built using Spring Boot and Spring Security oAuth.
 User can register and create clients, then 3rd party app can authenticate
 against this app.
 
